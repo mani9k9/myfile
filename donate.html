@@ -158,11 +158,8 @@
             <label for="email">Email:</label>
             <input type="email" id="email" name="email" placeholder="Your email address" required>
 
-
             <input type="submit" value="Donate Now">
         </form>
-    </section>
-
     </section>
 
     <footer>
@@ -170,51 +167,50 @@
     </footer>
 
     <script>
-     window.onload = function () {
-    const payuKey = 'FynyY4';
+        window.onload = function () {
+            const payuKey = 'FynyY4';
 
-    function handlePayment(event) {
-        event.preventDefault();
+            function handlePayment(event) {
+                event.preventDefault();
 
-        const amount = document.getElementById('amount').value;
-        const name = document.getElementById('name').value;
-        const email = document.getElementById('email').value;
+                const amount = document.getElementById('amount').value;
+                const name = document.getElementById('name').value;
+                const email = document.getElementById('email').value;
 
-        // Convert amount to paisa (PayU uses the smallest currency unit)
-        const amountInPaisa = amount * 100;
+                // Convert amount to paisa (PayU uses the smallest currency unit)
+                const amountInPaisa = amount * 100;
 
-        // Generate a random transaction ID
-        const txnId = 'TXN_' + Math.floor(Math.random() * 1000000);
+                // Generate a random transaction ID
+                const txnId = 'TXN_' + Math.floor(Math.random() * 1000000);
 
-        // Hash generation (you may need to adjust this based on your server-side logic)
-        const hash = generateHash(payuKey, txnId, amount, 'Donation', name, email, '1234567890', 'success.html', 'failure.html', 'bCifEsPDGJgOKmlw173OwJ9BmnAXyIRt');
+                // Hash generation (you may need to adjust this based on your server-side logic)
+                const hash = generateHash(payuKey, txnId, amount, 'Donation', name, email, '1234567890', 'success.html', 'failure.html', 'bCifEsPDGJgOKmlw173OwJ9BmnAXyIRt');
 
-        const paymentData = {
-            key: payuKey,
-            txnid: txnId,
-            amount: amountInPaisa,
-            productinfo: 'Donation',
-            firstname: name,
-            email: email,
-            phone: '1234567890',
-            surl: 'success.html',
-            furl: 'failure.html',
-            hash: hash,
-            service_provider: 'payu_paisa',
-        };
+                const paymentData = {
+                    key: payuKey,
+                    txnid: txnId,
+                    amount: amountInPaisa,
+                    productinfo: 'Donation',
+                    firstname: name,
+                    email: email,
+                    phone: '1234567890',
+                    surl: 'success.html',
+                    furl: 'failure.html',
+                    hash: hash,
+                    service_provider: 'payu_paisa',
+                };
 
-        PayU.sendRequest(paymentData, function (response) {
-            // Handle the PayU payment response
-            if (response.status === 'success') {
-                alert('Payment successful!');
-                // You can add additional handling or redirection here
-            } else {
-                alert('Payment failed. Please try again.');
+                PayU.sendRequest(paymentData, function (response) {
+                    // Handle the PayU payment response
+                    if (response.status === 'success') {
+                        alert('Payment successful!');
+                        // You can add additional handling or redirection here
+                    } else {
+                        alert('Payment failed. Please try again.');
+                    }
+                });
             }
-        });
-    }
-};
-
+        };
     </script>
 
 </body>
